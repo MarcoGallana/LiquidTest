@@ -106,3 +106,7 @@ venv.bak/
 # H5 file
 data/*
 *.h5
+
+# MODELS
+model/*
+*.sav
