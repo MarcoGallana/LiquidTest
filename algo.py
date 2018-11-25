@@ -6,6 +6,8 @@ from    keras.layers            import  Dropout
 from    sklearn.ensemble        import  RandomForestRegressor
 from    sklearn.linear_model    import  BayesianRidge
 from    sklearn.linear_model    import  Lasso
+from    sklearn.neural_network  import  MLPRegressor
+from    sklearn.preprocessing   import  MinMaxScaler
 
 def nn( input_shape, output_shape ):
 
@@ -82,3 +84,22 @@ def lasso( alpha  = 0.001, intercept = False ):
                         random_state    =   0 )
 
     return model
+
+def sklearn_nn( hidden_layer_sizes  = (256,), activation = 'relu', validation_fraction = .25, patience = 20, max_iter = 200 ):
+
+    model   =   MLPRegressor(   hidden_layer_sizes  =   hidden_layer_sizes,
+                                solver              =   'adam',
+                                activation          =   activation,
+                                learning_rate       =   'adaptive',
+                                early_stopping      =   True,
+                                validation_fraction =   validation_fraction,
+                                n_iter_no_change    =   patience,
+                                max_iter            =   max_iter,
+                                verbose             =   True,
+                                random_state        =   0 )
+
+    return model
+
+def fit_scaler( X ):
+    scaler  =   MinMaxScaler()
+    return  scaler.fit(X)

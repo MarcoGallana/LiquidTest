@@ -18,7 +18,7 @@ def plot( data, shape=None ):
 
     plt.show(block=True)
 
-def nomrQQplot( data, shape=None ):
+def normQQplot( data, shape=None ):
 
     shape   =   shape if shape else (data.shape[1],1)
 
