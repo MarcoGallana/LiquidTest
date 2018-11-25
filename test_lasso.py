@@ -19,15 +19,19 @@ if __name__ == '__main__':
     Y   =   dataY['Y']
 
     # keras model
-    model   =   algo.nn( X.shape[1], Y.shape[1] )
-    model.fit( X, Y, batch_size=100, epochs=1000 )
+    model   =   algo.lasso( alpha = .001 )
+    model.fit( X, Y )
+
+    # bayesian regression
+    # model   =   algo.create_model_linear( X.shape[1], Y.shape[1] )
+    # model.fit( X, Y, batch_size=100, epochs=1000 )
 
     Yr  =   model.predict( X )
-    
+
     print( 'MAE in-sample: ',  tools.mae( Y, Yr ))
     print( 'MSE in-sample: ',  tools.mse( Y, Yr ))
     print( 'MAPE in-sample: ',  tools.mape( Y, Yr ))
 
     tools.plot( Yr )
-    tools.qqplot( Yr )
+    tools.QQplot( Yr, Y )
     tools.boxplot( Yr )
