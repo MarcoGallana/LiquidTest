@@ -37,10 +37,17 @@ def QQplot( data_1, data_2, shape=None ):
     rows, cols    =   shape
 
     for i in range(0,data_1.shape[1]):
+
         plt.subplot(rows,cols,i+1)
-        d_1, d_2    =   np.sort(data_1[:,i],kind='mergesort'), np.sort(data_2[:,i],kind='mergesort')
-        plt.plot( d_1, 'o' )
-        plt.plot( d_2, '-r' )
+
+        hist_1, bin_edges_1 =   np.histogram(data_1[:,i], bins = 1000)
+        hist_2, bin_edges_2 =   np.histogram(data_2[:,i], bins = 1000)
+
+        d_1, d_2    =   np.cumsum( hist_1 ), np.cumsum( hist_2 )
+        x_1, x_2    =   bin_edges_1[1:], bin_edges_2[1:]
+
+        plt.plot( x_1, d_1, 'o' )
+        plt.plot( x_2, d_2, '-r' )
         plt.legend(['data_1','data_2'])
 
     plt.show(block=True)
